@@ -44,12 +44,11 @@ const GameSquare: FunctionComponent<SquareProps> = ({
           ${firstRow && 'cursor-pointer'}
           ${currentTurn === 'p1' && firstRow && 'hover:bg-red-400'}
           ${currentTurn === 'p2' && firstRow && 'hover:bg-yellow-400'}
-          ${player === 'p1' && 'bg-red-400'}
-          ${player === 'p2' && 'bg-yellow-400'}
+          ${player === 'p1' && 'bg-red-500'}
+          ${player === 'p2' && 'bg-yellow-500'}
         `}
         onClick={firstRow && !player ? handleClick : undefined}
       >
-
         </div>
     </div>
   )

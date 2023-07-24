@@ -1,6 +1,41 @@
 import { GridCell } from "../types/interfaces"
 
-export const updateState = (player: string, state: GridCell[][], column: number) => {
-  // Find the lowest value of the row in which the circle goes
-  const a = 4
+type CheckVictoryArgs = {
+  gameState: GridCell[][],
+  player: string
+}
+
+export const checkVictory = (args: CheckVictoryArgs): boolean => {
+  const { gameState, player } = args
+  const rows = 6, columns = 7
+
+  // Checking for horizontal coins
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < columns - 3; col++) {
+      if (
+        gameState[row][col].player === player &&
+        gameState[row][col + 1].player === player &&
+        gameState[row][col + 2].player === player &&
+        gameState[row][col + 3].player === player
+      ) {
+        return true
+      }
+    }
+  }
+
+  // Checking for vertical coins
+  for (let row = 0; row < rows - 3; row++) {
+    for (let col = 0; col < columns; col++) {
+      if (
+        gameState[row][col].player === player &&
+        gameState[row + 1][col].player === player &&
+        gameState[row + 2][col].player === player &&
+        gameState[row + 3][col].player === player
+      ) {
+        return true
+      }
+    }
+  }
+
+  return false
 } 

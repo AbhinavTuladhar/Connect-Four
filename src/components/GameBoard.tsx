@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import GameSquare from './GameSquare'
 import { players, GridCell } from '../types/interfaces'
 import { makeEmptyGrid } from '../utils/init';
 // import { updateState } from '../utils/gameLogic';
+import { checkVictory } from '../utils/gameLogic';
 
 const GameBoard = () => {
   const [gameState, setGameState] = useState<GridCell[][]>(makeEmptyGrid())
@@ -26,7 +27,7 @@ const GameBoard = () => {
 
         // Find the column with the corresponding column index
         const gridCell = baseRowArray.find(column => column.column === colIndex && column.player === null)
-        
+
         if (gridCell) {
           // Create a new object with the updated player property
           const updatedGridCell = { ...gridCell, player }
@@ -46,17 +47,40 @@ const GameBoard = () => {
     })
   } 
 
-  console.log(gameState)
+  type stateChangeProps = {
+    currentTurn: string,
+    colIndex: number,
+  }
+
+  const handleStateChange = ({ currentTurn, colIndex } : stateChangeProps) => {
+    updateState(currentTurn, colIndex)
+  }
+
+  useEffect(() => {
+    // Find the player who just moved
+    const prevPlayer = currentTurn === 'p1' ? 'p2' : 'p1'
+    const victoryCheck = checkVictory({ gameState: gameState, player: prevPlayer })
+    // Declare the winner and reset the board.
+    if (victoryCheck) {
+      alert(`${prevPlayer} is the winner!`)
+      setGameState(makeEmptyGrid())
+    }
+  }, [gameState, currentTurn])
 
   const squaresNew = gameState.map((row, rowIndex) => (
-    row.map(({ player }, colIndex) => (
-      <GameSquare 
+    row.map(({ player }, colIndex) => {
+      const SquareArgs: stateChangeProps = {
+        currentTurn: currentTurn,
+        colIndex: colIndex,
+      }
+
+      return <GameSquare 
         rowIndex={rowIndex} colIndex={colIndex} 
         player={player} currentTurn={currentTurn} 
         handleTurnChange={handleTurnChange} 
-        handleStateChange={() => updateState(currentTurn, colIndex)}
+        handleStateChange={() => handleStateChange(SquareArgs)}
       />
-    ))
+    })
   ))
 
   return (
