@@ -1,22 +1,36 @@
-import React from 'react'
+import React, { useState } from 'react'
 import GameSquare from './GameSquare'
+import { players, GridCell } from '../types/interfaces'
+import { makeEmptyGrid } from '../utils/init';
+
+// function getRandomPlayer() {
+//   const playersArray = ['p1', 'p2', ''];
+//   const randomIndex = Math.floor(Math.random() * playersArray.length);
+//   return playersArray[randomIndex];
+// }
 
 const GameBoard = () => {
-  const squares = []
+  const [gameState, setGameState] = useState<GridCell[][]>(makeEmptyGrid())
+  const [currentTurn, setCurrentTurn] = useState<string>(players.FIRST)
 
-  for (let row = 0; row < 6; row++) {
-    for (let col = 0; col < 7; col++) {
-      const tempSquare = <GameSquare rowIndex={row} colIndex={col} />
-      squares.push(tempSquare)
-    }
+  const squaresNew = gameState.map((row, rowIndex) => (
+    row.map(({ column, player }, colIndex) => (
+      <GameSquare rowIndex={rowIndex} colIndex={colIndex} player={player} />
+    ))
+  ))
+
+  const handleTurnChange = (): void => {
+    setCurrentTurn(prevTurn => (
+      prevTurn === 'p1' ? 'p2' : 'p1'
+    ))
   }
 
   return (
     <div className='flex justify-center mx-auto'>
       <div 
-        className='w-3/4 relative grid grid-flow-row grid-cols-[repeat(7,_6rem)] grid-rows-[repeat(6,_6rem)] place-items-center place-content-center'
+        className='w-3/4 relative grid grid-flow-row grid-cols-[repeat(7,_5rem)] grid-rows-[5rem_repeat(5,_5rem)] place-items-center place-content-center'
       > {
-        squares.map(square => square)
+        squaresNew.map(square => square)
       }</div>
     </div>
   )

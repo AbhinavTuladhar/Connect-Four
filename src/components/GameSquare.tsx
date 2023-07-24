@@ -2,10 +2,11 @@ import React, { FunctionComponent } from 'react'
 
 interface SquareProps {
   rowIndex: number,
-  colIndex: number
+  colIndex: number,
+  player: string
 }
 
-const GameSquare: FunctionComponent<SquareProps> = ({ rowIndex, colIndex }) => {
+const GameSquare: FunctionComponent<SquareProps> = ({ rowIndex, colIndex, player }) => {
   // Provide extra border styling based on values of rowIndex and colIndex
 
   return (
@@ -18,8 +19,15 @@ const GameSquare: FunctionComponent<SquareProps> = ({ rowIndex, colIndex }) => {
         ${rowIndex === 5 && colIndex === 6 && 'rounded-br-[3rem]'}
       `}
     > 
-      {/* {`${rowIndex}-${colIndex}`} */}
-      <div className='w-5/6 h-5/6 bg-slate-200 rounded-full'></div>
+      <div 
+        className={
+          `w-5/6 h-5/6 bg-slate-200 rounded-full cursor-pointer
+          ${player === 'p1' && rowIndex === 0 && 'hover:bg-red-400'}
+          ${player === 'p2' && rowIndex === 0 && 'hover:bg-yellow-400'}
+        `}
+      >
+
+        </div>
     </div>
   )
 }
