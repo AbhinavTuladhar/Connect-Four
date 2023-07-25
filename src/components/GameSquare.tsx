@@ -42,8 +42,8 @@ const GameSquare: FunctionComponent<SquareProps> = ({
         className={
           `w-5/6 h-5/6 bg-slate-200 rounded-full
           ${firstRow && 'cursor-pointer'}
-          ${currentTurn === 'p1' && firstRow && 'hover:bg-red-400'}
-          ${currentTurn === 'p2' && firstRow && 'hover:bg-yellow-400'}
+          ${currentTurn === 'p1' && firstRow && 'hover:bg-red-500'}
+          ${currentTurn === 'p2' && firstRow && 'hover:bg-yellow-500'}
           ${player === 'p1' && 'bg-red-500'}
           ${player === 'p2' && 'bg-yellow-500'}
         `}
