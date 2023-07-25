@@ -89,7 +89,7 @@ const GameBoard = () => {
         {`${currentTurn}'s turn.`}
       </div>
       <div 
-        className='w-3/4 relative grid grid-flow-row grid-cols-[repeat(7,_5rem)] grid-rows-[5rem_repeat(5,_5rem)] place-items-center place-content-center'
+        className='w-3/4 relative grid grid-flow-row grid-cols-[repeat(7,_3rem)] grid-rows-[repeat(6,_3rem)] md:grid-cols-[repeat(7,_5rem)] md:grid-rows-[repeat(6,_5rem)] place-items-center place-content-center'
       > {
         squaresNew.map(square => square)
       }</div>

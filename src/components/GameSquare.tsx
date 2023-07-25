@@ -32,10 +32,10 @@ const GameSquare: FunctionComponent<SquareProps> = ({
     <div 
       className={`
         flex w-full h-full justify-center items-center text-sm bg-blue-700
-        ${firstRow && firstCol && 'rounded-tl-[3rem]'}
-        ${firstRow && lastCol && 'rounded-tr-[3rem]'}
-        ${lastRow && firstCol && 'rounded-bl-[3rem]'}
-        ${lastRow && lastCol && 'rounded-br-[3rem]'}
+        ${firstRow && firstCol && 'rounded-tl-[1rem] md:rounded-tl-[3rem]'}
+        ${firstRow && lastCol && 'rounded-tr-[1rem] md:rounded-tr-[3rem]'}
+        ${lastRow && firstCol && 'rounded-bl-[1rem] md:rounded-bl-[3rem]'}
+        ${lastRow && lastCol && 'rounded-br-[1rem] md:rounded-br-[3rem]'}
       `}
     > 
       <div 
