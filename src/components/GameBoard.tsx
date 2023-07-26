@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react'
 import GameSquare from './GameSquare'
 import { players, GridCell } from '../types/interfaces'
 import { makeEmptyGrid } from '../utils/init';
-// import { updateState } from '../utils/gameLogic';
-import { checkVictory } from '../utils/gameLogic';
+import { checkVictory, checkDraw } from '../utils/gameLogic';
 
 const GameBoard = () => {
   const [gameState, setGameState] = useState<GridCell[][]>(makeEmptyGrid())
@@ -60,9 +59,15 @@ const GameBoard = () => {
     // Find the player who just moved
     const prevPlayer = currentTurn === 'p1' ? 'p2' : 'p1'
     const victoryCheck = checkVictory({ gameState: gameState, player: prevPlayer })
+    const drawCheck = checkDraw({ gameState: gameState })
     // Declare the winner and reset the board.
     if (victoryCheck) {
       alert(`${prevPlayer} is the winner!`)
+      setGameState(makeEmptyGrid())
+    }
+    // Reset the board if a draw is detected
+    if (drawCheck) {
+      alert('It is a draw. Lame!')
       setGameState(makeEmptyGrid())
     }
   }, [gameState, currentTurn])
@@ -82,6 +87,8 @@ const GameBoard = () => {
       />
     })
   ))
+
+  console.log(gameState)
 
   return (
     <div className='flex flex-col items-center justify-center mx-auto'>

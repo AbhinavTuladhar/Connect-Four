@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const colors = require('tailwindcss/colors')
+
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
@@ -12,6 +14,9 @@ module.exports = {
       gridTemplateRows: {
         'large-board': '5rem repeat (5, 5rem)',
         'small-board': 'repeat (6, 4rem)'
+      },
+      colors: {
+        ...colors
       }
     },
   },

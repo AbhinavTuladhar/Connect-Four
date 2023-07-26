@@ -5,8 +5,11 @@ type CheckVictoryArgs = {
   player: string
 }
 
-export const checkVictory = (args: CheckVictoryArgs): boolean => {
-  const { gameState, player } = args
+type CheckDrawArgs = {
+  gameState: GridCell[][]
+}
+
+export const checkVictory = ({ gameState, player }: CheckVictoryArgs): boolean => {
   const rows = 6, columns = 7
 
   // Checking for horizontal coins
@@ -63,3 +66,17 @@ export const checkVictory = (args: CheckVictoryArgs): boolean => {
 
   return false
 } 
+
+export const checkDraw = ({ gameState }: CheckDrawArgs): boolean => {
+  // First restructure the gamestat into a simple array of objects
+  const simpleGameState = gameState.flatMap(row => row)
+
+  // Count the number of empty tiles
+  const emptyTileCount = simpleGameState.reduce((acc, cell) => {
+    if (cell.player === null) acc++
+    return acc
+  }, 0)
+
+  // A draw has occurred if there are no null values
+  return emptyTileCount === 0
+}
